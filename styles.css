@@ -1,432 +1,11 @@
-    :root {
-        --primary: #89CFF0;    /* Azul bebê */
-        --secondary: #B0E0E6;  /* Azul pó */
-        --background: #F0F8FF; /* Azul alice */
-        --text: #4682B4;      /* Azul aço */
-        --accent: #E6E6FA;    /* Lavanda */
-    }
+        :root {
+            --primary: #89CFF0;    /* Azul bebê */
+            --secondary: #B0E0E6;  /* Azul pó */
+            --background: #F0F8FF; /* Azul alice */
+            --text: #4682B4;      /* Azul aço */
+            --accent: #E6E6FA;    /* Lavanda */
+        }
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Comic Neue', cursive;
-        background-color: var(--background);
-        color: var(--text);
-    }
-
-    header {
-        background: linear-gradient(45deg, var(--primary), #B0E0E6);
-        padding: 2rem;
-        text-align: center;
-        box-shadow: 0 8px 0 rgba(0,0,0,0.1);
-        border-bottom: 4px dashed #fff;
-    }
-
-    h1 {
-        font-size: 3rem;
-        text-shadow: 3px 3px 0 #B0E0E6;
-        letter-spacing: 2px;
-    }
-
-    .category-btn {
-        background: white;
-        border: 3px solid var(--primary);
-        padding: 0.8rem 1.5rem;
-        margin: 0.5rem;
-        border-radius: 25px;
-        font-size: 1.1rem;
-        box-shadow: 0 4px 0 #B0E0E6;
-        transform-origin: center bottom;
-        font-family: 'Comic Neue', cursive;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .category-btn:hover {
-        transform: scale(1.1) rotate(-2deg);
-    }
-
-    .category-btn.active {
-        background: var(--secondary);
-        color: white;
-    }
-
-    .products-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        padding: 2rem;
-    }
-
-    .product-card {
-        background: white;
-        border-radius: 20px;
-        padding: 1.5rem;
-        border: 4px solid var(--primary);
-        box-shadow: 0 8px 0 rgba(70, 130, 180, 0.1);
-        transform-style: preserve-3d;
-        perspective: 1000px;
-        text-align: center;
-        transition: transform 0.3s ease;
-        min-height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .product-card:hover {
-        transform: translateY(-10px) rotate(2deg);
-    }
-
-    .product-image {
-        display: none;
-    }
-
-    .cart-toggle {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        background: var(--primary);
-        color: white;
-        border: none;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.5rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .cart-toggle:hover {
-        transform: scale(1.1);
-    }
-
-    .cart-count {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background: #FF6B6B;
-        color: white;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid white;
-    }
-
-    .cart-popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 2rem;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        display: none;
-        z-index: 1000;
-        border: 4px solid var(--primary);
-        max-width: 90%;
-        width: 500px;
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-
-    /* Overlay escuro quando o carrinho está aberto */
-    .cart-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        display: none;
-        z-index: 999;
-    }
-
-    /* Estilo dos itens do carrinho */
-    .cart-items {
-        max-height: 50vh;
-        overflow-y: auto;
-        margin: 1rem 0;
-        padding-right: 1rem;
-    }
-
-    .cart-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem;
-        border-bottom: 1px solid var(--accent);
-        background: var(--background);
-        border-radius: 10px;
-        margin-bottom: 0.5rem;
-    }
-
-    .cart-item-info {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .cart-item-emoji {
-        font-size: 1.5rem;
-    }
-
-    .cart-total {
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 2px dashed var(--primary);
-        text-align: right;
-    }
-
-    .cart-total-value {
-        font-size: 1.5rem;
-        color: var(--primary);
-        font-weight: bold;
-        margin: 0.5rem 0;
-    }
-
-    /* Botão de fechar carrinho */
-    .cart-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text);
-        padding: 0.5rem;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-    }
-
-    .cart-close:hover {
-        background: var(--accent);
-        transform: rotate(90deg);
-    }
-
-    /* Botão de remover item */
-    .remove-item {
-        background: none;
-        border: none;
-        color: #FF6B6B;
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-    }
-
-    .remove-item:hover {
-        background: #FFE5E5;
-        transform: scale(1.1);
-    }
-
-    /* Animações */
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    .bounce {
-        animation: bounce 2s infinite;
-    }
-
-    @keyframes bounceIn {
-        0% { transform: scale(0.3); opacity: 0; }
-        50% { transform: scale(1.05); opacity: 0.8; }
-        70% { transform: scale(0.9); opacity: 0.9; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-
-    .bounce-in {
-        animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-
-    .checkout-btn {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 1rem 2rem;
-        border-radius: 25px;
-        font-family: 'Comic Neue', cursive;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .checkout-btn:hover {
-        transform: scale(1.05);
-    }
-
-    /* Novas animações */
-    @keyframes wobble {
-        0%, 100% { transform: rotate(-2deg); }
-        50% { transform: rotate(2deg); }
-    }
-
-    .wobble {
-        animation: wobble 2s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
-
-    .float {
-        animation: float 3s ease-in-out infinite;
-    }
-
-    /* Adicione essas novas classes */
-    .product-price {
-        font-size: 1.5rem;
-        color: var(--primary);
-        font-weight: bold;
-        transform: rotate(-5deg);
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background: var(--accent);
-        border-radius: 10px;
-        margin: 1rem 0;
-    }
-
-    /* Adicionar estilos específicos para itens de Anime Fighters */
-    .product-card[data-category="anime_fighters"] {
-        background: linear-gradient(145deg, var(--background), #fff);
-        border: 2px solid var(--accent);
-    }
-
-    .product-card[data-category="anime_fighters"] .product-price {
-        background: var(--primary);
-        color: white;
-        transform: rotate(-3deg) scale(1.1);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    /* Agrupar itens por subcategoria */
-    .category-header {
-        width: 100%;
-        padding: 1rem;
-        margin: 1rem 0;
-        background: var(--accent);
-        color: var(--text);
-        border-radius: 10px;
-        text-align: center;
-        grid-column: 1 / -1;
-    }
-
-    /* Modificar a função renderProducts para incluir os headers das subcategorias */
-
-    /* Adicionar estilos para emoji */
-    .product-emoji {
-        font-size: 4rem;
-        margin: 1rem 0;
-        padding: 1rem;
-        background: var(--background);
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        transition: transform 0.3s ease;
-    }
-
-    .product-card:hover .product-emoji {
-        transform: scale(1.2) rotate(10deg);
-    }
-
-    /* Ajustar tamanho dos cards */
-    .product-card {
-        min-height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    /* Ajustar espaçamento do nome do produto */
-    .product-card h3 {
-        margin: 1rem 0;
-        font-size: 1.1rem;
-        line-height: 1.4;
-    }
-
-    /* Estilo especial para emojis de Anime Fighters */
-    .product-card[data-category="anime_fighters"] .product-emoji {
-        background: linear-gradient(135deg, var(--accent), var(--background));
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    /* Estilos para categoria Free Fire */
-    .product-card[data-category="free_fire"] {
-        background: linear-gradient(145deg, #FFE5E5, #fff);
-        border: 2px solid #FF6B6B;
-    }
-
-    .product-card[data-category="free_fire"] .product-emoji {
-        font-size: 5rem;
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .product-card[data-category="free_fire"] .product-description {
-        font-size: 0.9rem;
-        text-align: left;
-        background: rgba(255,255,255,0.9);
-        padding: 1rem;
-        border-radius: 10px;
-        margin: 1rem 0;
-        border: 1px solid #FF6B6B;
-    }
-
-    .product-card[data-category="free_fire"] .product-description p {
-        margin: 0.5rem 0;
-        color: #666;
-    }
-
-    .product-card[data-category="free_fire"] .product-price {
-        background: #FF6B6B;
-        color: white;
-        font-size: 1.8rem;
-        padding: 0.8rem 1.5rem;
-        transform: rotate(-3deg) scale(1.1);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    /* Ajustar tamanho do card para Free Fire */
-    .product-card[data-category="free_fire"] {
-        min-height: 500px;
-        grid-column: span 2;
-    }
-
-    /* Ícones especiais para as informações */
-    .product-card[data-category="free_fire"] .product-description p {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    /* Melhorias específicas para mobile */
-    @media (max-width: 768px) {
-        /* Reset de estilos para mobile */
         * {
             margin: 0;
             padding: 0;
@@ -434,216 +13,738 @@
         }
 
         body {
-            overflow-x: hidden;
-            position: relative;
-            padding: 0;
-            margin: 0;
+            font-family: 'Comic Neue', cursive;
+            background-color: var(--background);
+            color: var(--text);
         }
 
-        /* Header compacto */
         header {
+            background: linear-gradient(45deg, var(--primary), #B0E0E6);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            border-bottom: 4px dashed #fff;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-shadow: 3px 3px 0 #B0E0E6;
+            letter-spacing: 2px;
+        }
+
+        .category-btn {
+            background: white;
+            border: 3px solid var(--primary);
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 0 #B0E0E6;
+            transform-origin: center bottom;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .category-btn:hover {
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        .category-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 4px solid var(--primary);
+            box-shadow: 0 8px 0 rgba(70, 130, 180, 0.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+        }
+
+        .product-image {
+            display: none;
+        }
+
+        .cart-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .cart-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #FF6B6B;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+
+        .cart-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            border: 4px solid var(--primary);
+            max-width: 90%;
+            width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* Overlay escuro quando o carrinho está aberto */
+        .cart-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 100;
-            background: var(--primary);
-            padding: 5px;
-            height: 45px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            font-size: 1.1rem;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Barra de navegação otimizada */
-        nav {
-            position: fixed;
-            top: 45px;
-            left: 0;
-            right: 0;
-            z-index: 99;
-            background: #fff;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            padding: 0 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-btn {
-            padding: 5px 12px;
-            margin: 0 3px;
-            font-size: 0.8rem;
-            height: 28px;
-            border-width: 1px;
-            box-shadow: none;
-            white-space: nowrap;
-            flex-shrink: 0;
-            border-radius: 15px;
-        }
-
-        /* Área principal */
-        main {
-            margin-top: 85px;
-            padding: 5px;
-            min-height: calc(100vh - 85px);
-        }
-
-        /* Grid de produtos */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            padding: 5px;
-        }
-
-        /* Cards de produto */
-        .product-card {
-            min-height: auto;
-            padding: 8px;
-            border-width: 1px;
-            border-radius: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin: 0;
-        }
-
-        .product-emoji {
-            font-size: 1.8rem;
-            width: 40px;
-            height: 40px;
-            padding: 5px;
-            margin: 5px auto;
-        }
-
-        .product-card h3 {
-            font-size: 0.75rem;
-            margin: 5px 0;
-            line-height: 1.2;
-        }
-
-        .product-price {
-            font-size: 0.9rem;
-            padding: 3px 8px;
-            margin: 5px 0;
-        }
-
-        /* Carrinho */
-        .cart-popup {
-            position: fixed;
             bottom: 0;
-            left: 0;
-            right: 0;
-            top: auto;
-            transform: none;
-            width: 100%;
-            max-width: 100%;
-            border-radius: 15px 15px 0 0;
-            max-height: 80vh;
-            padding: 15px;
-            border-width: 1px;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
         }
 
+        /* Estilo dos itens do carrinho */
         .cart-items {
             max-height: 50vh;
-            padding-right: 10px;
+            overflow-y: auto;
+            margin: 1rem 0;
+            padding-right: 1rem;
         }
 
-        .cart-toggle {
-            bottom: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            font-size: 1rem;
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--accent);
+            background: var(--background);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
         }
 
-        /* Free Fire card */
-        .product-card[data-category="free_fire"] {
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-item-emoji {
+            font-size: 1.5rem;
+        }
+
+        .cart-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed var(--primary);
+            text-align: right;
+        }
+
+        .cart-total-value {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        /* Botão de fechar carrinho */
+        .cart-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .cart-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        /* Botão de remover item */
+        .remove-item {
+            background: none;
+            border: none;
+            color: #FF6B6B;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #FFE5E5;
+            transform: scale(1.1);
+        }
+
+        /* Animações */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .checkout-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Novas animações */
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .wobble {
+            animation: wobble 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Adicione essas novas classes */
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            transform: rotate(-5deg);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        /* Adicionar estilos específicos para itens de Anime Fighters */
+        .product-card[data-category="anime_fighters"] {
+            background: linear-gradient(145deg, var(--background), #fff);
+            border: 2px solid var(--accent);
+        }
+
+        .product-card[data-category="anime_fighters"] .product-price {
+            background: var(--primary);
+            color: white;
+            transform: rotate(-3deg) scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Agrupar itens por subcategoria */
+        .category-header {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: var(--accent);
+            color: var(--text);
+            border-radius: 10px;
+            text-align: center;
             grid-column: 1 / -1;
-            padding: 10px;
+        }
+
+        /* Modificar a função renderProducts para incluir os headers das subcategorias */
+
+        /* Adicionar estilos para emoji */
+        .product-emoji {
+            font-size: 4rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--background);
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-emoji {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Ajustar tamanho dos cards */
+        .product-card {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Ajustar espaçamento do nome do produto */
+        .product-card h3 {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        /* Estilo especial para emojis de Anime Fighters */
+        .product-card[data-category="anime_fighters"] .product-emoji {
+            background: linear-gradient(135deg, var(--accent), var(--background));
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos para categoria Free Fire */
+        .product-card[data-category="free_fire"] {
+            background: linear-gradient(145deg, #FFE5E5, #fff);
+            border: 2px solid #FF6B6B;
+        }
+
+        .product-card[data-category="free_fire"] .product-emoji {
+            font-size: 5rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .product-card[data-category="free_fire"] .product-description {
-            font-size: 0.7rem;
-            padding: 8px;
-            margin: 5px 0;
+            font-size: 0.9rem;
+            text-align: left;
+            background: rgba(255,255,255,0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 1px solid #FF6B6B;
         }
 
-        /* Remover animações em mobile */
-        .product-card, .product-emoji, .category-btn {
-            transform: none !important;
-            animation: none !important;
-            transition: opacity 0.2s ease !important;
+        .product-card[data-category="free_fire"] .product-description p {
+            margin: 0.5rem 0;
+            color: #666;
         }
 
-        .product-card:active {
-            opacity: 0.8;
-        }
-    }
-
-    /* Ajustes para telas muito pequenas */
-    @media (max-width: 320px) {
-        .products-grid {
-            grid-template-columns: 1fr;
+        .product-card[data-category="free_fire"] .product-price {
+            background: #FF6B6B;
+            color: white;
+            font-size: 1.8rem;
+            padding: 0.8rem 1.5rem;
+            transform: rotate(-3deg) scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        main {
-            margin-top: 80px;
+        /* Ajustar tamanho do card para Free Fire */
+        .product-card[data-category="free_fire"] {
+            min-height: 500px;
+            grid-column: span 2;
         }
 
-        .product-card {
-            min-height: auto;
-        }
-    }
-
-    /* Ajustes para telas em paisagem */
-    @media (max-height: 450px) and (orientation: landscape) {
-        header {
-            height: 35px;
+        /* Ícones especiais para as informações */
+        .product-card[data-category="free_fire"] .product-description p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        nav {
-            top: 35px;
-            height: 30px;
+        /* Melhorias específicas para mobile */
+        @media (max-width: 768px) {
+            /* Reset de estilos para mobile */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                overflow-x: hidden;
+                position: relative;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* Header compacto */
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                background: var(--primary);
+                padding: 5px;
+                height: 45px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            h1 {
+                font-size: 1.1rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Barra de navegação otimizada */
+            nav {
+                position: fixed;
+                top: 45px;
+                left: 0;
+                right: 0;
+                z-index: 99;
+                background: #fff;
+                height: 35px;
+                display: flex;
+                align-items: center;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                padding: 0 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-btn {
+                padding: 5px 12px;
+                margin: 0 3px;
+                font-size: 0.8rem;
+                height: 28px;
+                border-width: 1px;
+                box-shadow: none;
+                white-space: nowrap;
+                flex-shrink: 0;
+                border-radius: 15px;
+            }
+
+            /* Área principal */
+            main {
+                margin-top: 85px;
+                padding: 5px;
+                min-height: calc(100vh - 85px);
+            }
+
+            /* Grid de produtos */
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 5px;
+            }
+
+            /* Cards de produto */
+            .product-card {
+                min-height: auto;
+                padding: 8px;
+                border-width: 1px;
+                border-radius: 10px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                margin: 0;
+            }
+
+            .product-emoji {
+                font-size: 1.8rem;
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+                margin: 5px auto;
+            }
+
+            .product-card h3 {
+                font-size: 0.75rem;
+                margin: 5px 0;
+                line-height: 1.2;
+            }
+
+            .product-price {
+                font-size: 0.9rem;
+                padding: 3px 8px;
+                margin: 5px 0;
+            }
+
+            /* Carrinho */
+            .cart-popup {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 15px 15px 0 0;
+                max-height: 80vh;
+                padding: 15px;
+                border-width: 1px;
+            }
+
+            .cart-items {
+                max-height: 50vh;
+                padding-right: 10px;
+            }
+
+            .cart-toggle {
+                bottom: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            /* Free Fire card */
+            .product-card[data-category="free_fire"] {
+                grid-column: 1 / -1;
+                padding: 10px;
+            }
+
+            .product-card[data-category="free_fire"] .product-description {
+                font-size: 0.7rem;
+                padding: 8px;
+                margin: 5px 0;
+            }
+
+            /* Remover animações em mobile */
+            .product-card, .product-emoji, .category-btn {
+                transform: none !important;
+                animation: none !important;
+                transition: opacity 0.2s ease !important;
+            }
+
+            .product-card:active {
+                opacity: 0.8;
+            }
         }
 
-        main {
-            margin-top: 70px;
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 320px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                margin-top: 80px;
+            }
+
+            .product-card {
+                min-height: auto;
+            }
         }
 
-        .products-grid {
-            grid-template-columns: repeat(3, 1fr);
+        /* Ajustes para telas em paisagem */
+        @media (max-height: 450px) and (orientation: landscape) {
+            header {
+                height: 35px;
+            }
+
+            nav {
+                top: 35px;
+                height: 30px;
+            }
+
+            main {
+                margin-top: 70px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .cart-popup {
+                max-height: 90vh;
+            }
         }
 
-        .cart-popup {
-            max-height: 90vh;
+        /* Melhorias de performance */
+        .product-card, .cart-popup, .cart-toggle {
+            will-change: transform;
+            backface-visibility: hidden;
         }
-    }
 
-    /* Melhorias de performance */
-    .product-card, .cart-popup, .cart-toggle {
-        will-change: transform;
-        backface-visibility: hidden;
-    }
-
-    /* Melhorar acessibilidade */
-    @media (prefers-reduced-motion: reduce) {
-        * {
-            animation: none !important;
-            transition: none !important;
+        /* Melhorar acessibilidade */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
         }
-    } 
+
+        /* Ajustes específicos para Safari e iOS */
+        @supports (-webkit-touch-callout: none) {
+            /* Header mais compacto */
+            header {
+                position: fixed;
+                height: 40px;
+                padding: 3px;
+                min-height: auto;
+                border-bottom: none;
+            }
+
+            h1 {
+                font-size: 1rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Navegação mais compacta */
+            nav {
+                position: fixed;
+                top: 40px; /* Altura exata do header */
+                height: 30px;
+                min-height: auto;
+                padding: 2px 5px;
+            }
+
+            /* Ajustar área principal */
+            main {
+                margin-top: 75px; /* Soma exata do header (40px) + nav (30px) + 5px de espaço */
+                padding-top: 5px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Ajustar botões de categoria */
+            .category-btn {
+                padding: 3px 10px;
+                height: 24px;
+                min-height: auto;
+                font-size: 0.8rem;
+                border-width: 1px;
+            }
+
+            /* Corrigir problemas de scroll */
+            body {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+            }
+
+            /* Ajustar grid de produtos */
+            .products-grid {
+                padding-bottom: 70px; /* Espaço para o botão do carrinho */
+            }
+
+            /* Garantir que o conteúdo não fique escondido */
+            .product-card {
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Ajustes específicos para iOS com notch */
+        @supports (padding-top: env(safe-area-inset-top)) {
+            header {
+                padding-top: env(safe-area-inset-top);
+                height: calc(40px + env(safe-area-inset-top));
+            }
+
+            nav {
+                top: calc(40px + env(safe-area-inset-top));
+            }
+
+            main {
+                margin-top: calc(75px + env(safe-area-inset-top));
+            }
+        }
+
+        /* Ajustes para orientação paisagem no Safari */
+        @media (orientation: landscape) and (-webkit-touch-callout: none) {
+            header {
+                height: 35px;
+            }
+
+            nav {
+                top: 35px;
+                height: 25px;
+            }
+
+            main {
+                margin-top: 65px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        } 
