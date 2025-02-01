@@ -1,273 +1,50 @@
-<html>
- <head>
-  <title>
-   JOTTA STORE
-  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <style>
-   body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .cart {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            max-height: 80%;
-            background-color: #f8f9fa;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            overflow-y: auto;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
-        }
-        .cart.open {
-            transform: translateY(0);
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .cart-item .details {
-            flex-grow: 1;
-            margin-left: 10px;
-        }
-        .cart-item .details h3 {
-            font-size: 1em;
-            margin: 0;
-        }
-        .cart-item .details p {
-            font-size: 0.9em;
-            color: #666;
-        }
-        .cart-item .price {
-            font-size: 1em;
-            color: #000;
-        }
-        .cart-item .actions {
-            display: flex;
-            align-items: center;
-        }
-        .cart-item .actions button {
-            background-color: #e3342f;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-left: 5px;
-            transition: background-color 0.3s;
-        }
-        .cart-item .actions button:hover {
-            background-color: #cc1f1a;
-        }
-        .cart-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #e3342f;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .cart-close:hover {
-            background-color: #cc1f1a;
-        }
-        .discount-badge {
-            background-color: #fbbf24;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .feedback {
-            position: fixed;
-            bottom: 4rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #38a169;
-            color: #fff;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .feedback.show {
-            opacity: 1;
-        }
-        .disabled-button {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-  </style>
- </head>
- <body class="bg-gray-100">
-  <header class="bg-gray-800 text-white p-4 text-center">
-   <h1 class="text-2xl font-bold">
-    JOTTA STORE
-   </h1>
-  </header>
-  <div class="container mx-auto p-4">
-   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="product bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative">
-     <div class="discount-badge">
-      20% OFF
-     </div>
-     <h2 class="text-2xl font-bold mt-2 text-gray-800">
-      Produto A
-     </h2>
-     <p class="text-gray-600 mt-2">
-      Um excelente produto para você.
-     </p>
-     <div class="price text-xl font-semibold mt-4 text-green-600">
-      R$50,00
-     </div>
-     <button aria-label="Adicionar Produto A ao carrinho" class="bg-green-500 text-white px-4 py-2 mt-4 rounded hover:bg-green-600 transition-colors duration-300" onclick="addToCart('Produto A', 50)">
-      Adicionar ao Carrinho
-     </button>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Cartoon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="bounce-in">
+        <h1>👼 Angels Store ✨</h1>
+        <p class="subtitle wobble">Produtos celestiais para iluminar seu dia! ⭐</p>
+        <nav>
+            <button class="category-btn active" data-category="todos">✨ Todos</button>
+            <button class="category-btn" data-category="brinquedos">🎯 Brinquedos</button>
+            <button class="category-btn" data-category="doces">🍬 Doces</button>
+            <button class="category-btn" data-category="jogos">🎮 Jogos</button>
+            <button class="category-btn" data-category="anime_fighters">⚔️ Anime Fighters</button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="products-grid" id="products-container">
+            <!-- Produtos serão inseridos via JavaScript -->
+        </div>
+    </main>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <div id="cart-popup" class="cart-popup">
+        <button class="cart-close" id="cart-close">✖️</button>
+        <h2>🛒 Seu Carrinho</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-total">
+            <p>Total do Pedido:</p>
+            <div class="cart-total-value">R$ <span id="cart-total">0.00</span></div>
+            <button id="checkout-btn" class="checkout-btn">
+                Finalizar no WhatsApp 📱
+            </button>
+        </div>
     </div>
-    <div class="product bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative">
-     <div class="discount-badge">
-      30% OFF
-     </div>
-     <h2 class="text-2xl font-bold mt-2 text-gray-800">
-      Produto B
-     </h2>
-     <p class="text-gray-600 mt-2">
-      Ideal para seu dia a dia.
-     </p>
-     <div class="price text-xl font-semibold mt-4 text-green-600">
-      R$80,00
-     </div>
-     <button aria-label="Adicionar Produto B ao carrinho" class="bg-green-500 text-white px-4 py-2 mt-4 rounded hover:bg-green-600 transition-colors duration-300" onclick="addToCart('Produto B', 80)">
-      Adicionar ao Carrinho
-     </button>
-    </div>
-    <div class="product bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative">
-     <div class="discount-badge">
-      45% OFF
-     </div>
-     <h2 class="text-2xl font-bold mt-2 text-gray-800">
-      Produto C
-     </h2>
-     <p class="text-gray-600 mt-2">
-      Perfeito para todos os momentos.
-     </p>
-     <div class="price text-xl font-semibold mt-4 text-green-600">
-      R$120,00
-     </div>
-     <button aria-label="Adicionar Produto C ao carrinho" class="bg-green-500 text-white px-4 py-2 mt-4 rounded hover:bg-green-600 transition-colors duration-300" onclick="addToCart('Produto C', 120)">
-      Adicionar ao Carrinho
-     </button>
-    </div>
-   </div>
-  </div>
-  <div class="cart" id="cart">
-   <button class="cart-close" onclick="toggleCart()">
-    Fechar
-   </button>
-   <h2 class="text-xl font-bold mb-4">
-    Carrinho de Compras
-   </h2>
-   <div id="cart-items">
-   </div>
-   <div class="cart-total text-lg font-semibold mt-4" id="cart-total">
-    Total: R$0,00
-   </div>
-   <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded w-full hover:bg-blue-600 transition-colors duration-300 disabled-button" disabled="" id="checkout" onclick="checkout()">
-    Finalizar Compra
-   </button>
-  </div>
-  <button class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300" onclick="toggleCart()">
-   <i class="fas fa-shopping-cart">
-   </i>
-  </button>
-  <div id="feedback" class="feedback" role="alert" aria-live="assertive">
-  </div>
-  <script>
-   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        function addToCart(name, price) {
-            const item = cart.find(product => product.name === name);
-            if (item) {
-                item.quantity++;
-            } else {
-                cart.push({ name, price, quantity: 1 });
-            }
-            updateCart();
-            showFeedback(`${name} adicionado ao carrinho!`);
-        }
-        function updateCart() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-            let total = 0;
-            cart.forEach(item => {
-                total += item.price * item.quantity;
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    <div class="details">
-                        <h3 class="text-md font-semibold">${item.name}</h3>
-                        <p class="text-gray-600">Quantidade: ${item.quantity}</p>
-                    </div>
-                    <div class="price text-md font-semibold">R$${(item.price * item.quantity).toFixed(2)}</div>
-                    <div class="actions">
-                        <button onclick="removeFromCart('${item.name}')">Remover</button>
-                    </div>
-                `;
-                cartItems.appendChild(cartItem);
-            });
-            document.getElementById('cart-total').innerText = `Total: R$${total.toFixed(2)}`;
-            const checkoutButton = document.getElementById('checkout');
-            checkoutButton.disabled = cart.length === 0;
-            checkoutButton.classList.toggle('disabled-button', cart.length === 0);
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-        function removeFromCart(name) {
-            const itemIndex = cart.findIndex(product => product.name === name);
-            if (itemIndex > -1) {
-                cart.splice(itemIndex, 1);
-            }
-            updateCart();
-        }
-        function checkout() {
-            let message = 'Olá! Eu gostaria de comprar os seguintes itens:\n';
-            let total = 0;
-            cart.forEach(item => {
-                message += `- ${item.name}: R$${item.price.toFixed(2)} x ${item.quantity}\n`;
-                total += item.price * item.quantity;
-            });
-            message += `Total: R$${total.toFixed(2)}`;
-            const whatsappUrl = `https://wa.me/24981128510?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-            showFeedback('Pedido enviado com sucesso!');
-            cart = [];
-            updateCart();
-        }
-        function toggleCart() {
-            const cart = document.getElementById('cart');
-            cart.classList.toggle('open');
-        }
-        function showFeedback(message) {
-            const feedback = document.getElementById('feedback');
-            feedback.innerText = message;
-            feedback.classList.add('show');
-            setTimeout(() => {
-                feedback.classList.remove('show');
-            }, 2000);
-        }
-        document.addEventListener('DOMContentLoaded', updateCart);
-  </script>
- </body>
-</html>
+
+    <button id="cart-toggle" class="cart-toggle">
+        🛒 <span class="cart-count" id="cart-count">0</span>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html> 
