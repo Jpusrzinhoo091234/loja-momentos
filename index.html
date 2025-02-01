@@ -8,17 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="bounce-in">
-        <h1>👼 Angels Store ✨</h1>
-        <p class="subtitle wobble">Produtos celestiais para iluminar seu dia! ⭐</p>
-        <nav>
-            <button class="category-btn active" data-category="todos">✨ Todos</button>
-            <button class="category-btn" data-category="brinquedos">🎯 Brinquedos</button>
-            <button class="category-btn" data-category="doces">🍬 Doces</button>
-            <button class="category-btn" data-category="jogos">🎮 Jogos</button>
-            <button class="category-btn" data-category="anime_fighters">⚔️ Anime Fighters</button>
-        </nav>
-    </header>
+    <div class="header-nav-container">
+        <header class="bounce-in">
+            <h1>👼 Angels Store ✨</h1>
+            <p class="subtitle wobble">Produtos celestiais para iluminar seu dia! ⭐</p>
+            <nav>
+                <button class="category-btn active" data-category="todos">✨ Todos</button>
+                <button class="category-btn" data-category="brinquedos">🎯 Brinquedos</button>
+                <button class="category-btn" data-category="doces">🍬 Doces</button>
+                <button class="category-btn" data-category="jogos">🎮 Jogos</button>
+                <button class="category-btn" data-category="anime_fighters">⚔️ Anime Fighters</button>
+            </nav>
+        </header>
+    </div>
+    
+    <button class="header-toggle" id="headerToggle">✖️</button>
 
     <main>
         <div class="products-grid" id="products-container">
