@@ -424,93 +424,217 @@ h1 {
     gap: 0.5rem;
 }
 
-/* Melhorias adicionais para mobile */
+/* Melhorias específicas para mobile */
 @media (max-width: 768px) {
-    /* Melhorar header */
+    /* Header mais compacto */
     header {
-        padding: 1rem 0.5rem;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
-
-    /* Melhorar navegação */
-    nav {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
         padding: 0.5rem;
-        margin: 0 -0.5rem;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none; /* Firefox */
-    }
-
-    nav::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
-    }
-
-    .category-btn {
-        scroll-snap-align: start;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-
-    /* Melhorar cards */
-    .product-card {
-        margin: 0.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transform: none !important; /* Remover rotação em hover para mobile */
-    }
-
-    .product-card:active {
-        transform: scale(0.98) !important;
-    }
-
-    /* Melhorar carrinho */
-    .cart-popup {
         position: fixed;
-        top: auto;
-        bottom: 0;
+        top: 0;
         left: 0;
         right: 0;
-        transform: none;
-        width: 100%;
-        max-width: 100%;
-        border-radius: 20px 20px 0 0;
+        z-index: 100;
+        background: linear-gradient(45deg, var(--primary), #B0E0E6);
+        height: auto;
+        max-height: 120px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+        display: none; /* Remover subtítulo em mobile para economizar espaço */
+    }
+
+    /* Menu de categorias fixo abaixo do header */
+    nav {
+        position: fixed;
+        top: 50px; /* Altura do header */
+        left: 0;
+        right: 0;
+        background: white;
+        z-index: 99;
+        padding: 0.3rem;
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Botões de categoria mais compactos */
+    .category-btn {
+        padding: 0.4rem 0.8rem;
+        margin: 0 0.2rem;
+        font-size: 0.8rem;
+        border-width: 2px;
+        box-shadow: 0 2px 0 #B0E0E6;
+    }
+
+    /* Área principal ajustada */
+    main {
+        margin-top: 100px; /* Altura do header + nav */
+        padding: 0.5rem;
+        padding-bottom: 70px;
+    }
+
+    /* Grid de produtos otimizado */
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas fixas */
+        gap: 0.5rem;
+        padding: 0.3rem;
+    }
+
+    /* Cards mais compactos */
+    .product-card {
+        padding: 0.5rem;
+        min-height: 180px;
+        border-width: 2px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .product-emoji {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        padding: 0.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .product-card h3 {
+        font-size: 0.8rem;
+        margin: 0.2rem 0;
+        line-height: 1.2;
+    }
+
+    .product-price {
+        font-size: 1rem;
+        padding: 0.3rem 0.6rem;
+        margin: 0.3rem 0;
+    }
+
+    /* Carrinho otimizado */
+    .cart-popup {
+        bottom: 0;
+        border-radius: 15px 15px 0 0;
+        padding: 1rem;
         max-height: 80vh;
     }
 
-    .cart-close {
-        top: 0.5rem;
+    .cart-items {
+        max-height: 40vh;
+    }
+
+    .cart-item {
+        padding: 0.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .cart-item-emoji {
+        font-size: 1.2rem;
+    }
+
+    .cart-total-value {
+        font-size: 1.2rem;
+    }
+
+    /* Botão do carrinho mais discreto */
+    .cart-toggle {
+        bottom: 0.5rem;
         right: 0.5rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
     }
 
-    /* Melhorar botões */
-    .category-btn, .checkout-btn, button {
-        min-height: 44px; /* Mínimo recomendado para touch */
+    .cart-count {
+        width: 20px;
+        height: 20px;
+        font-size: 0.8rem;
     }
 
-    /* Melhorar espaçamento de texto */
-    .product-card h3 {
-        font-size: 1rem;
-        margin: 0.5rem 0;
+    /* Remover animações pesadas em mobile */
+    .product-card:hover {
+        transform: none;
     }
 
-    /* Ajustar descrições */
-    .product-description {
-        font-size: 0.9rem;
-        line-height: 1.4;
+    .product-card:active {
+        transform: scale(0.98);
     }
 
-    /* Melhorar feedback tátil */
-    .product-card, .category-btn, .checkout-btn, .cart-toggle {
+    /* Free Fire ajustes */
+    .product-card[data-category="free_fire"] {
+        grid-column: span 2;
+        min-height: auto;
+    }
+
+    .product-card[data-category="free_fire"] .product-description {
+        font-size: 0.75rem;
+        padding: 0.3rem;
+    }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 320px) {
+    .products-grid {
+        grid-template-columns: 1fr; /* Uma coluna para telas muito pequenas */
+    }
+
+    main {
+        margin-top: 90px;
+    }
+
+    .product-card {
+        min-height: 160px;
+    }
+}
+
+/* Ajustes para telas médias */
+@media (min-width: 321px) and (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Melhorias de performance */
+@media (max-width: 768px) {
+    * {
         -webkit-tap-highlight-color: transparent;
     }
 
-    /* Melhorar scroll do carrinho */
-    .cart-items {
-        padding-bottom: 1rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid var(--accent);
+    .product-card, .cart-popup {
+        transform: translateZ(0);
+    }
+
+    body {
+        overscroll-behavior-y: contain;
+    }
+}
+
+/* Ajustes para orientação paisagem em celulares */
+@media (max-height: 500px) and (orientation: landscape) {
+    header {
+        padding: 0.3rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    main {
+        margin-top: 100px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .cart-popup {
+        max-height: 90vh;
     }
 }
 
@@ -522,25 +646,6 @@ h1 {
 
     .cart-toggle {
         bottom: max(1rem, env(safe-area-inset-bottom));
-    }
-}
-
-/* Melhorias para telas muito pequenas */
-@media (max-width: 360px) {
-    /* Reduzir ainda mais os espaçamentos */
-    .products-grid {
-        gap: 0.5rem;
-        padding: 0.5rem;
-    }
-
-    /* Ajustar tamanho dos emojis */
-    .product-emoji {
-        padding: 0.5rem;
-    }
-
-    /* Compactar informações do carrinho */
-    .cart-item {
-        padding: 0.5rem;
     }
 }
 
