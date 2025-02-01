@@ -604,14 +604,18 @@
             }
 
             .header-nav-container.collapsed {
-                transform: translateY(-80px);
+                transform: translateY(-85px);
             }
 
             /* Ajustar posição do botão quando colapsado */
             .header-nav-container.collapsed + .header-toggle {
-                top: 5px;
                 background: var(--primary);
                 color: white;
+            }
+
+            /* Ajustar margem do conteúdo quando colapsado */
+            .header-nav-container.collapsed ~ main {
+                margin-top: 40px;
             }
         }
 
@@ -733,7 +737,7 @@
             }
 
             .header-nav-container.collapsed {
-                transform: translateY(calc(-80px - env(safe-area-inset-top)));
+                transform: translateY(calc(-85px - env(safe-area-inset-top)));
             }
         }
 
@@ -770,5 +774,60 @@
 
             .products-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Botão de toggle (inicialmente oculto) */
+        .header-toggle {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 101;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+        }
+
+        /* Mostrar apenas em mobile */
+        @media (max-width: 768px) {
+            .header-toggle {
+                display: flex;
+            }
+
+            .header-nav-container {
+                transition: transform 0.3s ease;
+                background: var(--primary);
+            }
+
+            .header-nav-container.collapsed {
+                transform: translateY(-85px); /* Ajustado para cobrir header + nav */
+            }
+
+            /* Ajustar posição do botão quando colapsado */
+            .header-nav-container.collapsed + .header-toggle {
+                background: var(--primary);
+                color: white;
+            }
+
+            /* Ajustar margem do conteúdo quando colapsado */
+            .header-nav-container.collapsed ~ main {
+                margin-top: 40px; /* Apenas espaço para o botão */
+            }
+        }
+
+        /* Ajustes específicos para Safari/iOS */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 768px) {
+                .header-nav-container.collapsed {
+                    transform: translateY(calc(-85px - env(safe-area-inset-top)));
+                }
             }
         } 
