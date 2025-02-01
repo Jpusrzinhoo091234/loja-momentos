@@ -73,7 +73,7 @@ const products = [
         id: 36,
         name: "✅ PASSE DE ELITE BOOYAH FREE FIRE + BRINDE ✅",
         emoji: "👑",
-        price: 8.49,
+        price: 10.49,
         category: "free_fire",
         description: `
             🎮 PASSE BOOYAH PREMIUM FREE FIRE - ENTREGA RÁPIDA
