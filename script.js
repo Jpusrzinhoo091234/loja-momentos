@@ -256,4 +256,35 @@ document.getElementById('cart-toggle').addEventListener('click', showCartPopup);
 
 // Inicializar a loja
 initializeCategories();
-renderProducts(); 
+renderProducts();
+
+// Adicionar no final do arquivo
+function initializeHeaderToggle() {
+    const headerToggle = document.getElementById('headerToggle');
+    const headerNavContainer = document.querySelector('.header-nav-container');
+    let isCollapsed = false;
+
+    headerToggle.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        headerNavContainer.classList.toggle('collapsed', isCollapsed);
+        headerToggle.innerHTML = isCollapsed ? '↓' : '✖️';
+    });
+
+    // Esconder header quando rolar para baixo
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Rolando para baixo
+            if (!isCollapsed) {
+                headerNavContainer.classList.add('collapsed');
+                headerToggle.innerHTML = '↓';
+                isCollapsed = true;
+            }
+        }
+        lastScrollTop = scrollTop;
+    });
+}
+
+// Chamar a função de inicialização
+initializeHeaderToggle(); 
