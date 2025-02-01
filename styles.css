@@ -593,6 +593,26 @@
             .product-card:active {
                 opacity: 0.8;
             }
+
+            /* Adicionar estilos para o botão de toggle */
+            .header-toggle {
+                display: flex;
+            }
+
+            .header-nav-container {
+                transition: transform 0.3s ease;
+            }
+
+            .header-nav-container.collapsed {
+                transform: translateY(-80px);
+            }
+
+            /* Ajustar posição do botão quando colapsado */
+            .header-nav-container.collapsed + .header-toggle {
+                top: 5px;
+                background: var(--primary);
+                color: white;
+            }
         }
 
         /* Ajustes para telas muito pequenas */
@@ -710,6 +730,10 @@
             /* Garantir que o conteúdo não fique escondido */
             .product-card {
                 margin-bottom: 10px;
+            }
+
+            .header-nav-container.collapsed {
+                transform: translateY(calc(-80px - env(safe-area-inset-top)));
             }
         }
 
